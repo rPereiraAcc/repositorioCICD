@@ -97,11 +97,14 @@ jobs:
       - name: Upload artifact 
         uses: actions/upload-artifact@master
         with:
-            name: artifacts
+            name: artifacts/${{ matrix.dirs }}
             path: ${{ matrix.dirs }}/target/*.jar
         
   deploy:
     needs: build
+    strategy:
+      matrix: 
+        dirs: ${{ fromJson(needs.verify-directories.outputs.matrix) }}
     runs-on: ubuntu-latest
 
     steps:    
@@ -117,7 +120,7 @@ jobs:
     
     - uses: actions/download-artifact@master
       with:
-        name: artifacts
+        name: artifacts/${{ matrix.dirs }}
     
     - name: Deploy to Sandbox
       env:
@@ -125,7 +128,7 @@ jobs:
         PASSWORD: ${{ secrets.PASSWORD }}
         CONN_APP_CLIENT_SECRET: ${{ secrets.CONN_APP_CLIENT_SECRET }}
         CONN_APP_CLIENT_ID: ${{ secrets.CONN_APP_CLIENT_ID }}
-      working-directory: azuredatalake
+      working-directory: ${{ matrix.dirs }}
       run: |
         artifactName=$(ls *.jar | head -1)
         mvn deploy -DmuleDeploy \
