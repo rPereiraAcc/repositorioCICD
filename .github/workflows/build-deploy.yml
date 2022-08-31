@@ -45,7 +45,7 @@ jobs:
         id: json-array
         run: |
           read -r -a array <<< '${{ steps.changed-files-dir-names.outputs.all_changed_files }}'
-          delete='.github/workflows'
+          delete=.github/workflows
           array=( “${array[@]/$delete}” )
           
           json_array() {
