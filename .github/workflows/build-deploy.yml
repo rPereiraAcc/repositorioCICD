@@ -128,6 +128,7 @@ jobs:
     - uses: actions/download-artifact@master
       with:
         name: ${{ matrix.dirs }}-artifact
+        path: ${{ matrix.dirs }}
     
     - name: Deploy to Sandbox
       env:
