@@ -70,7 +70,7 @@ jobs:
     
   build:
     needs: verify-directories
-    if: ${{ needs.verify-directories.outputs.matrix!=[] }}
+    if: needs.verify-directories.outputs.matrix != '[]'
     strategy:
       matrix: 
         dirs: ${{ fromJson(needs.verify-directories.outputs.matrix) }}
