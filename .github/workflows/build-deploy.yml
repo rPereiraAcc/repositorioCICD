@@ -128,6 +128,7 @@ jobs:
     - uses: actions/download-artifact@master
       with:
         name: ${{ matrix.dirs }}-artifact
+        path: ${{ matrix.dirs }}
     
     - name: Deploy to Sandbox
       env:
@@ -135,9 +136,11 @@ jobs:
         PASSWORD: ${{ secrets.PASSWORD }}
         CONN_APP_CLIENT_SECRET: ${{ secrets.CONN_APP_CLIENT_SECRET }}
         CONN_APP_CLIENT_ID: ${{ secrets.CONN_APP_CLIENT_ID }}
+      working-directory: ${{ matrix.dirs }}
       run: |
         artifactName=$(ls *.jar | head -1)
         echo "$artifactName"
+        echo "$(cd "$(dirname "$artifactName")"; pwd)/$(basename "$artifactName")"
         echo "$(pwd)"
         mvn deploy -DmuleDeploy \
          -Dmule.artifact=$artifactName \
