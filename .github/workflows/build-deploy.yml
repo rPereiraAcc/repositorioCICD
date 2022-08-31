@@ -128,7 +128,7 @@ jobs:
     - uses: actions/download-artifact@master
       with:
         name: ${{ matrix.dirs }}-artifact
-        path: ${{ matrix.dirs }}
+        path: ${{ matrix.dirs }}/target
     
     - name: Deploy to Sandbox
       env:
@@ -139,6 +139,8 @@ jobs:
       working-directory: ${{ matrix.dirs }}
       run: |
         artifactName=$(ls *.jar | head -1)
+        echo "$artifactName"
+        echo "$(pwd)"
         mvn deploy -DmuleDeploy \
          -Dmule.artifact=$artifactName \
          -Danypoint.username="$USERNAME" \
