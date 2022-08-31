@@ -8,8 +8,8 @@ on:
     # This is a filter. Only pushs to branch master will run this workflow
     branches: [ master ]
     # This is to ignore certain directories which are not desired
-    paths-ignore:
-      - '.github/**'
+    #paths-ignore:
+     # - '.github/**'
   # This trigger allows to run this workflow on demand
   workflow_dispatch:
 
