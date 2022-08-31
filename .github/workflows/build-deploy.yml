@@ -108,7 +108,7 @@ jobs:
             path: ${{ matrix.dirs }}/target/*.jar
         
   deploy:
-    needs: build
+    needs: [ verify-directories, build ]
     strategy:
       matrix: 
         dirs: ${{ fromJson(needs.verify-directories.outputs.matrix) }}
