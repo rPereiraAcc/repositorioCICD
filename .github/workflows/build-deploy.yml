@@ -3,16 +3,22 @@
 name: Build and Deploy to Sandbox
 
 on:
+  # This trigger allows to run this workflow on push
   push:
+    # This is a filter. Only pushs to branch master will run this workflow
     branches: [ master ]
+    # This is to ignore certain directories which are not desired
     paths-ignore:
       - '.github/**'
+  # This trigger allows to run this workflow on demand
   workflow_dispatch:
-  
+
+# This is what will be excuted
 jobs:
   verify-directories:
     runs-on: ubuntu-latest
-    name: Verify directories changed 
+    name: Verify directories changed
+    # This output is created in order to be used by other jobs
     outputs:
         matrix: ${{ steps.json-array.outputs.dirNamesArray }}
         
@@ -33,7 +39,8 @@ jobs:
           for file in ${{ steps.changed-files-dir-names.outputs.all_changed_files }}; do
             echo $file was changed
           done
-        
+      
+      # This step is used to create a JSON array with Projects that were changed and need to be deployed  
       - name: Convert to json
         id: json-array
         run: |
