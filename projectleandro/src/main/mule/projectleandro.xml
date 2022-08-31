@@ -4,5 +4,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 	<flow name="projectleandroFlow" doc:id="97cbe059-37b4-4b7d-bd4b-c43aab2f7552" >
+		<logger level="INFO" doc:name="Logger" doc:id="e8917157-25b6-4db5-8cc6-381c532c9e04" />
 	</flow>
 </mule>
