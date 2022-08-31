@@ -104,7 +104,7 @@ jobs:
       - name: Upload artifact 
         uses: actions/upload-artifact@master
         with:
-            name: artifacts/${{ matrix.dirs }}
+            name: ${{ matrix.dirs }}-artifact
             path: ${{ matrix.dirs }}/target/*.jar
         
   deploy:
@@ -127,7 +127,7 @@ jobs:
     
     - uses: actions/download-artifact@master
       with:
-        name: artifacts/${{ matrix.dirs }}
+        name: ${{ matrix.dirs }}-artifact
     
     - name: Deploy to Sandbox
       env:
